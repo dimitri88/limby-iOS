@@ -44,6 +44,7 @@
 		248668DC20492D950013C28E /* BalloonMarker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BalloonMarker.swift; sourceTree = "<group>"; };
 		48E95F57CB4925E6BD26D6F5 /* Pods-LIMBY.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LIMBY.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LIMBY/Pods-LIMBY.debug.xcconfig"; sourceTree = "<group>"; };
 		6DC8AB1920ACB0AB0034D3C3 /* RegisterDeviceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterDeviceController.swift; sourceTree = "<group>"; };
+		6DC8AB1C20ACD9DF0034D3C3 /* ParticleBridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParticleBridgingHeader.h; sourceTree = "<group>"; };
 		74BF61193F3AA5CAF34296F9 /* Pods_LIMBY.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LIMBY.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		99B86B6FF52A93EC22FD8633 /* Pods-LIMBY.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LIMBY.release.xcconfig"; path = "Pods/Target Support Files/Pods-LIMBY/Pods-LIMBY.release.xcconfig"; sourceTree = "<group>"; };
 		9A123C1F202435F300129008 /* LIMBY.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LIMBY.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -125,6 +126,7 @@
 				9A123C31202435F300129008 /* Info.plist */,
 				9A123C29202435F300129008 /* LIMBY.xcdatamodeld */,
 				2463267020525C5600753A58 /* LineChartHelper.swift */,
+				6DC8AB1C20ACD9DF0034D3C3 /* ParticleBridgingHeader.h */,
 			);
 			path = LIMBY;
 			sourceTree = "<group>";
@@ -176,7 +178,6 @@
 				9A123C1C202435F300129008 /* Frameworks */,
 				9A123C1D202435F300129008 /* Resources */,
 				F39C012F906612608351765B /* [CP] Embed Pods Frameworks */,
-				6EC38F5DCB6271A2FD128A21 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -297,21 +298,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		6EC38F5DCB6271A2FD128A21 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LIMBY/Pods-LIMBY-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		E3AA05C33C86FCF20CEE7356 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -337,17 +323,21 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-LIMBY/Pods-LIMBY-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/1PasswordExtension/OnePasswordExtension.framework",
 				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Charts/Charts.framework",
 				"${BUILT_PRODUCTS_DIR}/Particle-SDK/Particle_SDK.framework",
+				"${BUILT_PRODUCTS_DIR}/ParticleSetup/ParticleSetup.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OnePasswordExtension.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Charts.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Particle_SDK.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ParticleSetup.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -545,6 +535,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nwtsai.LIMBY;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Particle-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -562,6 +553,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = nwtsai.LIMBY;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Particle-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

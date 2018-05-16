@@ -6,5 +6,5 @@ target 'LIMBY' do
   pod 'Charts'
   pod 'Particle-SDK'
   pod 'Alamofire'
-  pod 'SparkSetup'
+  pod 'ParticleSetup'
 end

@@ -41,15 +41,15 @@ class DataQueue {
     func login(username : String, password : String, vc : LoginViewController) {
         ParticleCloud.sharedInstance().login(withUser: username, password: password) { (error:Error?) -> Void in
             if let _ = error {
-//                let alert = UIAlertController(title: "Error", message:
-//                    "Wrong credentials or no internet connectivity. Please" +
-//                    " try again.", preferredStyle: UIAlertControllerStyle.alert)
-//                alert.addAction(UIAlertAction(title: "Dismiss",
-//                    style: UIAlertActionStyle.default, handler: nil))
-//                vc.present(alert, animated: true, completion: nil)
-//                self.handleErrorAuth(vc: vc)
-                eprint(message: "Logged in")
-                self.segueToMainAuth(vc: vc)
+                let alert = UIAlertController(title: "Error", message:
+                    "Wrong credentials or no internet connectivity. Please" +
+                    " try again.", preferredStyle: UIAlertControllerStyle.alert)
+                alert.addAction(UIAlertAction(title: "Dismiss",
+                    style: UIAlertActionStyle.default, handler: nil))
+                vc.present(alert, animated: true, completion: nil)
+                self.handleErrorAuth(vc: vc)
+//                eprint(message: "Logged in")
+//                self.segueToMainAuth(vc: vc)
             }
             else {
                 eprint(message: "Logged in")

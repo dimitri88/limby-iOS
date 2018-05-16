@@ -7,8 +7,11 @@
 //
 
 import UIKit
-import sp
-class RegisterDeviceController: UIViewController {
+class RegisterDeviceController: UIViewController, ParticleSetupMainControllerDelegate {
+    
+    func particleSetupViewController(_ controller: ParticleSetupMainController!, didFinishWith result: ParticleSetupMainControllerResult, device: ParticleDevice!) {
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
@@ -21,5 +24,10 @@ class RegisterDeviceController: UIViewController {
     //MARK: Actions
     @IBAction func cancel(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func SetUpDevice(_ sender: Any) {
+        var setupController = ParticleSetupMainController()
+        self.present(setupController!, animated: true, completion: nil)
     }
 }
