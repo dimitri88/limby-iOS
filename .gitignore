@@ -68,3 +68,5 @@ fastlane/screenshots
 fastlane/test_output
 
 LIMBY/Pods/Target Support Files/Pods-LIMBY/
+
+\.DS_Store
