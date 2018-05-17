@@ -59,12 +59,12 @@ class RegisterDeviceController: UIViewController, ParticleSetupMainControllerDel
             let customization = ParticleSetupCustomization.sharedInstance
             customization().deviceName = "Perch"
             customization().brandName = "Limby"
-            let image = UIImage(named: "bird.jpg")
+            let image = UIImage(named: "LogoImage")
             let themeColor = UIColor(displayP3Red: 0.063, green: 0.565, blue: 0.741, alpha: 1.0)
-            customization().brandImage = image
+            customization().brandImage = nil
             customization().elementBackgroundColor = themeColor
+            customization().brandImageBackgroundColor = themeColor
             customization().normalTextColor = themeColor
-            customization().lightStatusAndNavBar = false
             setupController.delegate = self
             self.present(setupController, animated: true, completion: nil)
         }
