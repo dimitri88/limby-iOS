@@ -55,6 +55,7 @@ class LineChartViewController: UIViewController, UITextFieldDelegate {
     // -------------------------------------------------------------------------
     
     @IBAction func unsubscribe(_ sender: Any) {
+        ParticleCloud.sharedInstance().logout()
         DataQueue.singleton.unsubscribe()
         DataQueue.singleton.queue.removeAll()
         self.navigationController?.popViewController(animated: true)

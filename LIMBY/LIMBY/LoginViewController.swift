@@ -131,9 +131,16 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var Username: UITextField!
     @IBOutlet weak var Password: UITextField!
     @IBOutlet weak var LoginButton: UIButton!
-    
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
+        activityIndicator.startAnimating()
+        if ParticleCloud.sharedInstance().isAuthenticated {
+            activityIndicator.stopAnimating()
+            eprint(message: "Logged in")
+            let graphViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "lineChartViewController") as! LineChartViewController
+            self.navigationController?.pushViewController(graphViewController, animated: true)
+        }
         super.viewDidLoad()
     }
 
