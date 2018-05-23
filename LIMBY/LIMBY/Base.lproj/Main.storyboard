@@ -14,16 +14,10 @@
         <scene sceneID="JDF-hU-81u">
             <objects>
                 <viewController title="LoginViewController" id="pSu-SS-q7W" customClass="LoginViewController" customModule="LIMBY" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="YZo-Ii-lgH">
+                    <view key="view" contentMode="center" id="YZo-Ii-lgH">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LIMBY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nqp-1J-5ZF">
-                                <rect key="frame" x="144.5" y="95" width="86" height="36"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                <color key="textColor" red="0.062214739620000001" green="0.56600600479999996" blue="0.74111294750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Password" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wbI-DI-Tpd" userLabel="PasswordLabel">
                                 <rect key="frame" x="25" y="246" width="95" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -48,8 +42,8 @@
                                     <action selector="GetPassword:" destination="bND-km-8Vy" eventType="editingDidEnd" id="2yV-5f-I4f"/>
                                 </connections>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dn0-eU-ns3">
-                                <rect key="frame" x="156" y="321" width="63" height="44"/>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dn0-eU-ns3">
+                                <rect key="frame" x="138" y="325" width="98" height="34"/>
                                 <color key="backgroundColor" red="0.062214739620000001" green="0.56600600479999996" blue="0.74111294750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="63" id="FoZ-zf-zDR"/>
@@ -70,6 +64,18 @@
                                 <color key="textColor" red="0.062214739620000001" green="0.56600600479999996" blue="0.74111294750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="LIMBY" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nqp-1J-5ZF">
+                                <rect key="frame" x="144" y="94" width="86" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                <color key="textColor" red="0.062214739620000001" green="0.56600600479999996" blue="0.74111294750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Q7g-e3-Rp4">
+                                <rect key="frame" x="169" y="427" width="37" height="37"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" red="0.062745098040000002" green="0.56470588239999997" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="color" red="0.063" green="0.56470588239999997" blue="0.74117647060000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -99,13 +105,14 @@
                         <outlet property="Password" destination="N2d-V1-lHy" id="AVr-Ww-Ftx"/>
                         <outlet property="ProjectName" destination="nqp-1J-5ZF" id="13v-9r-hjZ"/>
                         <outlet property="Username" destination="CLK-KE-wsJ" id="s2g-yR-1Wt"/>
+                        <outlet property="activityIndicator" destination="Q7g-e3-Rp4" id="Icr-ri-Eib"/>
                         <segue destination="y3i-BN-iVI" kind="presentation" identifier="login_segue" id="1z8-Zm-fbG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Loy-fG-DoM" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="bND-km-8Vy" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="423.75" y="384.50704225352115"/>
+            <point key="canvasLocation" x="423.19999999999999" y="383.65817091454278"/>
         </scene>
         <!--LineChartViewController-->
         <scene sceneID="1Pd-2v-cYp">
