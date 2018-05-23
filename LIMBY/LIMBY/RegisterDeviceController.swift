@@ -13,6 +13,7 @@ class RegisterDeviceController: UIViewController, ParticleSetupMainControllerDel
         switch result
         {
         case .success:
+            dismiss(animated: true, completion: nil)
             print("Setup completed successfully")
         case .failureConfigure:
             fallthrough
