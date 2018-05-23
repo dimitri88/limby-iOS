@@ -26,18 +26,18 @@ class LineChartViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        lineChartView.noDataText = "No data available."
+//        lineChartView.noDataText = "No data available."
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        timeRange = TimeRange(rawValue: segmentedController.selectedSegmentIndex)!
-        let _ = DataQueue.singleton.subscribe(prefix: "weight")
-        plotLineChart(plotMode: PlotMode.initial)
-        Timer.scheduledTimer(withTimeInterval:
-            LineChartViewController.REFRESH_INTERVAL, repeats: true) { _ in
-            self.plotLineChart(plotMode: PlotMode.update)
-        }
+//        super.viewWillAppear(animated)
+//        timeRange = TimeRange(rawValue: segmentedController.selectedSegmentIndex)!
+//        let _ = DataQueue.singleton.subscribe(prefix: "weight")
+//        plotLineChart(plotMode: PlotMode.initial)
+//        Timer.scheduledTimer(withTimeInterval:
+//            LineChartViewController.REFRESH_INTERVAL, repeats: true) { _ in
+//            self.plotLineChart(plotMode: PlotMode.update)
+//        }
     }
     
     // -------------------------------------------------------------------------

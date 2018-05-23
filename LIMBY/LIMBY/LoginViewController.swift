@@ -125,18 +125,40 @@ class DataQueue {
     }
 }
 
-class LoginViewController: UIViewController {
-    
-    @IBOutlet weak var ProjectName: UILabel!
-    @IBOutlet weak var Username: UITextField!
-    @IBOutlet weak var Password: UITextField!
-    @IBOutlet weak var LoginButton: UIButton!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+class LoginViewController: UIViewController, ParticleSetupMainControllerDelegate {
+    func particleSetupViewController(_ controller: ParticleSetupMainController!, didFinishWith result: ParticleSetupMainControllerResult, device: ParticleDevice!) {
+        switch result
+        {
+        case .success:
+            dismiss(animated: true, completion: nil)
+            print("Setup completed successfully")
+        case .failureConfigure:
+            fallthrough
+        case .failureCannotDisconnectFromDevice:
+            fallthrough
+        case .failureLostConnectionToDevice:
+            fallthrough
+        case .failureClaiming:
+            print("Setup failed")
+        case .userCancel :
+            print("User cancelled setup")
+        case .loggedIn :
+            print("User is logged in")
+        default:
+            print("Uknown setup error")
+            
+        }
+        
+        if device != nil
+        {
+            device.getVariable("test", completion: { (value, err) -> Void in
+                
+            })
+        }
+    }
     
     override func viewDidLoad() {
-        activityIndicator.startAnimating()
         if ParticleCloud.sharedInstance().isAuthenticated {
-            activityIndicator.stopAnimating()
             eprint(message: "Logged in")
             let graphViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "lineChartViewController") as! LineChartViewController
             self.navigationController?.pushViewController(graphViewController, animated: true)
@@ -149,14 +171,21 @@ class LoginViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func ConnectDevice(_ sender: UIButton) {
-        //authenticate input and go to main screen
-        DataQueue.singleton.login(username: Username.text!, password: Password.text!, vc: self)
+    @IBAction func loginParticle(_ sender: UIButton) {
+        if let setupController = ParticleSetupMainController()
+        {
+            let customization = ParticleSetupCustomization.sharedInstance
+            customization().deviceName = "Perch"
+            customization().brandName = "Limby"
+            let themeColor = UIColor(displayP3Red: 0.063, green: 0.565, blue: 0.741, alpha: 1.0)
+            customization().brandImage = nil
+            customization().elementBackgroundColor = themeColor
+            customization().brandImageBackgroundColor = themeColor
+            customization().normalTextColor = themeColor
+            setupController.delegate = self
+            self.present(setupController, animated: true, completion: nil)
+        }
     }
-    
-
-    
-    
 }
 
 
