@@ -144,6 +144,9 @@ class LoginViewController: UIViewController, ParticleSetupMainControllerDelegate
             print("User cancelled setup")
         case .loggedIn :
             print("User is logged in")
+            let graphViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "tabBarController")
+            let appDelegate = (UIApplication.shared.delegate as! AppDelegate)
+            appDelegate.window?.rootViewController = graphViewController
         default:
             print("Uknown setup error")
             
@@ -156,13 +159,13 @@ class LoginViewController: UIViewController, ParticleSetupMainControllerDelegate
             })
         }
     }
-    
+
     override func viewDidLoad() {
-        if ParticleCloud.sharedInstance().isAuthenticated {
-            eprint(message: "Logged in")
-            let graphViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "lineChartViewController") as! LineChartViewController
-            self.navigationController?.pushViewController(graphViewController, animated: true)
-        }
+//        if ParticleCloud.sharedInstance().isAuthenticated {
+//            eprint(message: "Logged in")
+//            let graphViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "lineChartViewController") as! LineChartViewController
+//            self.navigationController?.pushViewController(graphViewController, animated: true)
+//        }
         super.viewDidLoad()
     }
 
@@ -172,7 +175,7 @@ class LoginViewController: UIViewController, ParticleSetupMainControllerDelegate
     }
     
     @IBAction func loginParticle(_ sender: UIButton) {
-        if let setupController = ParticleSetupMainController()
+        if let setupController = ParticleSetupMainController(authenticationOnly : true)
         {
             let customization = ParticleSetupCustomization.sharedInstance
             customization().deviceName = "Perch"
