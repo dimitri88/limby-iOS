@@ -10,10 +10,37 @@ import UIKit
 
 class SplashScreenViewController: UIViewController {
 
+    private let activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.addSubview(activityIndicator)
+        activityIndicator.frame = view.bounds
+        activityIndicator.backgroundColor = UIColor(white: 0, alpha: 0.4)
+        makeAPICall()
+    }
+    private func makeAPICall() {
+        activityIndicator.startAnimating()
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(2)) {
+            self.activityIndicator.stopAnimating()
+            if ParticleCloud.sharedInstance().isAuthenticated {
+                eprint(message: "Logged in")
+                let graphViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "tabBarController")
+                let appDelegate = (UIApplication.shared.delegate as! AppDelegate)
+                appDelegate.window?.rootViewController = graphViewController
+            } else{
+                
+                let graphViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+                let appDelegate = (UIApplication.shared.delegate as! AppDelegate)
+                appDelegate.window?.rootViewController = graphViewController
+            }
+        }
 
-        // Do any additional setup after loading the view.
+
     }
 
     override func didReceiveMemoryWarning() {
