@@ -46,6 +46,7 @@ class AccountViewController: UIViewController, ParticleSetupMainControllerDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         logoutButton.layer.borderWidth = 1.0
+        getDevices()
         // Do any additional setup after loading the view.
     }
 
@@ -90,5 +91,23 @@ class AccountViewController: UIViewController, ParticleSetupMainControllerDelega
             self.present(setupController, animated: true, completion: nil)
         }
 
+    }
+    
+    func getDevices(){
+        var myPhoton : ParticleDevice?
+        ParticleCloud.sharedInstance().getDevices { (devices:[ParticleDevice]?, error:Error?) -> Void in
+            if let _ = error {
+                print("Check your internet connectivity")
+            }
+            else {
+                if let d = devices {
+                    for device in d {
+                        if device.name == "myNewPhotonName" {
+                            myPhoton = device
+                        }
+                    }
+                }
+            }
+        }
     }
 }

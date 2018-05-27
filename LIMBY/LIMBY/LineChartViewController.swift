@@ -54,12 +54,6 @@ class LineChartViewController: UIViewController, UITextFieldDelegate {
     // IBAction handlers
     // -------------------------------------------------------------------------
     
-    @IBAction func unsubscribe(_ sender: Any) {
-        ParticleCloud.sharedInstance().logout()
-        DataQueue.singleton.unsubscribe()
-        DataQueue.singleton.queue.removeAll()
-        self.navigationController?.popViewController(animated: true)
-    }
     
     // Modify line chart whenever segment index changes.
     @IBAction func segmentChanged(_ sender: Any) {

@@ -63,19 +63,9 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CZW-du-kN8">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="535"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="516"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </scrollView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fCr-53-3IO">
-                                <rect key="frame" x="93" y="555" width="188" height="40"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Log Out"/>
-                                <connections>
-                                    <action selector="logOut:" destination="x3S-lK-Ml3" eventType="touchUpInside" id="tA8-8u-v3f"/>
-                                    <action selector="logout:" destination="x3S-lK-Ml3" eventType="touchUpInside" id="joq-Hu-8VD"/>
-                                    <action selector="logout:" destination="hAP-Wx-wO1" eventType="touchUpInside" id="om9-IT-gJL"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nSI-Ky-xPi">
                                 <rect key="frame" x="93" y="68" width="188" height="45"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -83,6 +73,16 @@
                                 <state key="normal" title="Add Perch device"/>
                                 <connections>
                                     <action selector="addPerchDevice:" destination="hAP-Wx-wO1" eventType="touchUpInside" id="SV6-Xt-ryT"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fCr-53-3IO">
+                                <rect key="frame" x="93" y="543" width="188" height="40"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Log Out"/>
+                                <connections>
+                                    <action selector="logOut:" destination="x3S-lK-Ml3" eventType="touchUpInside" id="tA8-8u-v3f"/>
+                                    <action selector="logout:" destination="x3S-lK-Ml3" eventType="touchUpInside" id="joq-Hu-8VD"/>
+                                    <action selector="logout:" destination="hAP-Wx-wO1" eventType="touchUpInside" id="om9-IT-gJL"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -174,10 +174,10 @@
         <!--Tab Bar Controller-->
         <scene sceneID="iPV-8r-za5">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5tm-Qd-Wph" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <tabBarController storyboardIdentifier="tabBarController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="EiU-O7-6rg" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="fPC-K3-X28">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
@@ -186,6 +186,7 @@
                         <segue destination="hAP-Wx-wO1" kind="relationship" relationship="viewControllers" id="Paj-gq-xdb"/>
                     </connections>
                 </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5tm-Qd-Wph" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1252" y="385"/>
         </scene>
