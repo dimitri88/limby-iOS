@@ -10,20 +10,8 @@ import Foundation
 import UIKit
 import Charts
 
-class LineChartViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+class LineChartViewController: UIViewController, UITextFieldDelegate {
     
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return pickerData.count
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        replot(row: row)
-        return pickerData[row]
-    }
     
     // -------------------------------------------------------------------------
     // Initialization
@@ -36,20 +24,18 @@ class LineChartViewController: UIViewController, UITextFieldDelegate, UIPickerVi
     static let LINE_WIDTH = CGFloat(2.0)
     static let NATHANS_CONSTANT = CGFloat(17)
     static let REFRESH_INTERVAL = 2.5
-    var pickerData: [String] = [String]()
 
     override func viewDidLoad() {
-        pickerData = ["Minute", "Day", "Week", "Month", "Year"]
         super.viewDidLoad()
         //connect picker data
-        self.picker.delegate = self
-        self.picker.dataSource = self
+
         lineChartView.noDataText = "No data available."
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        timeRange = TimeRange(rawValue: 1)!
+        MongoReader.singleton.getData()
+        timeRange = TimeRange(rawValue: segmentControl.selectedSegmentIndex)!
         plotLineChart(plotMode: PlotMode.initial)
         Timer.scheduledTimer(withTimeInterval:
             LineChartViewController.REFRESH_INTERVAL, repeats: true) { _ in
@@ -62,10 +48,14 @@ class LineChartViewController: UIViewController, UITextFieldDelegate, UIPickerVi
     // -------------------------------------------------------------------------
     
     @IBOutlet var lineChartView: LineChartView!
+
     
-    @IBOutlet weak var picker: UIPickerView!
-    //    @IBOutlet weak var segmentedController: UISegmentedControl!
+    @IBOutlet weak var segmentControl: UISegmentedControl!
     
+    
+    @IBAction func indexChanged(_ sender: Any) {
+        replot(row: segmentControl.selectedSegmentIndex)
+    }
     // TimeRange to reflect the state of the segmented controller.
     var timeRange = TimeRange(rawValue: 0)!
     

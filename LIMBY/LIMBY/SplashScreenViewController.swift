@@ -17,8 +17,11 @@ class SplashScreenViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-        let email = ParticleCloud.sharedInstance().loggedInUsername
-        MongoReader.singleton.getUserId(email: email!)
+        if (ParticleCloud.sharedInstance().isAuthenticated) {
+            let email = ParticleCloud.sharedInstance().loggedInUsername
+                MongoReader.singleton.getUserId(email: email!)
+            
+        }
         super.viewDidLoad()
         view.addSubview(activityIndicator)
         activityIndicator.frame = view.bounds
@@ -29,7 +32,6 @@ class SplashScreenViewController: UIViewController {
         activityIndicator.startAnimating()
 
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(2)) {
-            MongoReader.singleton.getData()
             self.activityIndicator.stopAnimating()
             if ParticleCloud.sharedInstance().isAuthenticated {
                 eprint(message: "Logged in")

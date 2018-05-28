@@ -17,110 +17,6 @@ extension FileHandle : TextOutputStream {
     }
 }
 
-/**
- A Singleton class for data queue feeds. Requires a login onto the particle device and the queue
- will be asynchronously filled with data.
- */
-class DataQueue {
-    static let singleton = DataQueue()
-    var queue : [String] = []
-    var subscription : Any?
-    private init(){ /* Singletons should be private ctor'd */ }
-    
-    
-    
-    enum ParticleError: Error{
-        case loginError
-        case logicError
-    }
-    
-    func login(username : String, password : String, vc : LoginViewController) {
-        ParticleCloud.sharedInstance().login(withUser: username, password: password) { (error:Error?) -> Void in
-            if let _ = error {
-//                let alert = UIAlertController(title: "Error", message:
-//                    "Wrong credentials or no internet connectivity. Please" +
-//                    " try again.", preferredStyle: UIAlertControllerStyle.alert)
-//                alert.addAction(UIAlertAction(title: "Dismiss",
-//                    style: UIAlertActionStyle.default, handler: nil))
-//                vc.present(alert, animated: true, completion: nil)
-//                self.handleErrorAuth(vc: vc)
-                eprint(message: "Logged in")
-                self.segueToMainAuth(vc: vc)
-            }
-            else {
-                eprint(message: "Logged in")
-                self.segueToMainAuth(vc: vc)
-            }
-        }
-    }
-    
-    func segueToMainAuth(vc : LoginViewController) -> Void {
-        let graphViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "lineChartViewController") as! LineChartViewController
-        vc.navigationController?.pushViewController(graphViewController, animated: true)
-    }
-    
-    func handleErrorAuth(vc : LoginViewController) -> Void{
-        eprint(message: "Error!")
-    }
-    
-    func checkExist(deviceName : String) -> Bool {
-        var exists : Bool = true
-        ParticleCloud.sharedInstance().getDevices { (devices:[ParticleDevice]?, error:Error?) -> Void in
-            if let _ = error {
-                eprint(message: "Check your internet connectivity")
-                exists = false
-            }
-            else {
-                if let d = devices {
-                    for device in d {
-                        if device.name == deviceName {
-                            eprint(message: "Successfully retrieved chicken weigher.")
-                        }
-                        else {
-                            exists = false
-                        }
-                    }
-                }
-            }
-        }
-        return exists
-    }
-    
-    func subscribe(prefix : String) -> Any? {
-        var subscription : Any?
-        subscription = ParticleCloud.sharedInstance().subscribeToAllEvents(withPrefix: prefix, handler: { (eventOpt :ParticleEvent?, error : Error?) in
-            if let _ = error {
-                eprint (message: "Could not subscribe to events")
-            } else {
-                let serialQueue = DispatchQueue(label: "getWeight")
-                serialQueue.async(execute: {
-                    if let event = eventOpt{
-                        if let eventData = event.data {
-                            eprint(message: "got event with data \(eventData)")
-                            let components = eventData.components(separatedBy: "\t")
-                            if components.count == 2 {
-                                self.queue.append(eventData)
-                            }
-                        }
-                    }
-                    else{
-                        eprint(message: "Event is nil")
-                    }
-                })
-            }
-        })
-        self.subscription = subscription
-        return subscription
-    }
-    
-    func unsubscribe(){
-        if self.subscription != nil {
-            ParticleCloud.sharedInstance().unsubscribeFromEvent(withID: self.subscription!)
-            self.subscription = nil
-        }
-    }
-}
-
 class LoginViewController: UIViewController, ParticleSetupMainControllerDelegate {
     func particleSetupViewController(_ controller: ParticleSetupMainController!, didFinishWith result: ParticleSetupMainControllerResult, device: ParticleDevice!) {
         switch result
@@ -140,6 +36,8 @@ class LoginViewController: UIViewController, ParticleSetupMainControllerDelegate
             print("User cancelled setup")
         case .loggedIn :
             print("User is logged in")
+            let email = ParticleCloud.sharedInstance().loggedInUsername
+            MongoReader.singleton.getUserId(email: email!)
             let graphViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "tabBarController")
             let appDelegate = (UIApplication.shared.delegate as! AppDelegate)
             appDelegate.window?.rootViewController = graphViewController
