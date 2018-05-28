@@ -17,10 +17,6 @@ extension FileHandle : TextOutputStream {
     }
 }
 
-func eprint(message : String) {
-    print(message, to: &standardError)
-}
-
 /**
  A Singleton class for data queue feeds. Requires a login onto the particle device and the queue
  will be asynchronously filled with data.

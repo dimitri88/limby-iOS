@@ -30,7 +30,7 @@ class LineChartViewController: UIViewController, UITextFieldDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
+            super.viewWillAppear(animated)
 //        timeRange = TimeRange(rawValue: segmentedController.selectedSegmentIndex)!
 //        let _ = DataQueue.singleton.subscribe(prefix: "weight")
 //        plotLineChart(plotMode: PlotMode.initial)
@@ -45,6 +45,9 @@ class LineChartViewController: UIViewController, UITextFieldDelegate {
     // -------------------------------------------------------------------------
     
     @IBOutlet var lineChartView: LineChartView!
+    
+    @IBOutlet weak var CView: UIView!
+    
     @IBOutlet weak var segmentedController: UISegmentedControl!
     
     // TimeRange to reflect the state of the segmented controller.

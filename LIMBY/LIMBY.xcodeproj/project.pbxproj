@@ -12,6 +12,7 @@
 		5B6C90674B80BECF696B12BD /* Pods_LIMBY.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 74BF61193F3AA5CAF34296F9 /* Pods_LIMBY.framework */; };
 		6D047F8720B5FCB100902057 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D047F8620B5FCB100902057 /* AccountViewController.swift */; };
 		6D047F8920B7C59500902057 /* SplashScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D047F8820B7C59500902057 /* SplashScreenViewController.swift */; };
+		6DF76BE820BB384D00D8A05D /* MongoReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6DF76BE720BB384D00D8A05D /* MongoReader.swift */; };
 		9A123C23202435F300129008 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A123C22202435F300129008 /* AppDelegate.swift */; };
 		9A123C28202435F300129008 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A123C26202435F300129008 /* Main.storyboard */; };
 		9A123C2B202435F300129008 /* LIMBY.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 9A123C29202435F300129008 /* LIMBY.xcdatamodeld */; };
@@ -47,6 +48,7 @@
 		6D047F8620B5FCB100902057 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		6D047F8820B7C59500902057 /* SplashScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashScreenViewController.swift; sourceTree = "<group>"; };
 		6DC8AB1C20ACD9DF0034D3C3 /* ParticleBridgingHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ParticleBridgingHeader.h; sourceTree = "<group>"; };
+		6DF76BE720BB384D00D8A05D /* MongoReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MongoReader.swift; sourceTree = "<group>"; };
 		74BF61193F3AA5CAF34296F9 /* Pods_LIMBY.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LIMBY.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		99B86B6FF52A93EC22FD8633 /* Pods-LIMBY.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LIMBY.release.xcconfig"; path = "Pods/Target Support Files/Pods-LIMBY/Pods-LIMBY.release.xcconfig"; sourceTree = "<group>"; };
 		9A123C1F202435F300129008 /* LIMBY.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LIMBY.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -119,6 +121,7 @@
 			children = (
 				248668DC20492D950013C28E /* BalloonMarker.swift */,
 				D7F26CA52036BE5F00A9ED10 /* LoginViewController.swift */,
+				6DF76BE720BB384D00D8A05D /* MongoReader.swift */,
 				9ADC9424202D7AE80006F684 /* LineChartViewController.swift */,
 				9A123C22202435F300129008 /* AppDelegate.swift */,
 				9A123C26202435F300129008 /* Main.storyboard */,
@@ -356,6 +359,7 @@
 			files = (
 				2463267120525C5600753A58 /* LineChartHelper.swift in Sources */,
 				9A123C23202435F300129008 /* AppDelegate.swift in Sources */,
+				6DF76BE820BB384D00D8A05D /* MongoReader.swift in Sources */,
 				6D047F8920B7C59500902057 /* SplashScreenViewController.swift in Sources */,
 				6D047F8720B5FCB100902057 /* AccountViewController.swift in Sources */,
 				9ADC9425202D7AE90006F684 /* LineChartViewController.swift in Sources */,

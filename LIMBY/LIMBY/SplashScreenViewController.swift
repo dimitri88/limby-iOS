@@ -17,6 +17,8 @@ class SplashScreenViewController: UIViewController {
     }
     
     override func viewDidLoad() {
+        let email = ParticleCloud.sharedInstance().loggedInUsername
+        MongoReader.singleton.getUserId(email: email!)
         super.viewDidLoad()
         view.addSubview(activityIndicator)
         activityIndicator.frame = view.bounds
@@ -29,6 +31,7 @@ class SplashScreenViewController: UIViewController {
             self.activityIndicator.stopAnimating()
             if ParticleCloud.sharedInstance().isAuthenticated {
                 eprint(message: "Logged in")
+                MongoReader.singleton.getData()
                 let graphViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "tabBarController")
                 let appDelegate = (UIApplication.shared.delegate as! AppDelegate)
                 appDelegate.window?.rootViewController = graphViewController
