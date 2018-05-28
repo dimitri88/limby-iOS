@@ -3,7 +3,7 @@
 //  LIMBY
 //
 //  Created by Linzuo Li on 5/27/18.
-//  Copyright © 2018 Nathan Tsai. All rights reserved.
+//  Copyright © 2018 Linzuo Li. All rights reserved.
 //
 import Foundation
 import Alamofire
@@ -51,13 +51,17 @@ class MongoReader {
         Alamofire.request(data_endpoint, parameters : params).responseJSON { response in
             if let json = response.result.value as? [[String:Any]]{
                 for res in json {
-                    let time : Int = res["time"] as! Int
-                    let value : Int = res["value"] as! Int
-                    let record : [String : Int] = [
-                        "time" : time,
-                        "value": value
-                    ]
-                    self.queue.append(record)
+                    do{
+                        let time : Int = res["time"] as! Int
+                        let value : Int = res["value"] as! Int
+                        let record : [String : Int] = [
+                            "time" : time,
+                            "value": value
+                        ]
+                        self.queue.append(record)
+                    }catch is Error {
+                         print("Database Type Error")
+                    }
                 }
             } else{
                 eprint(message : "Error, user does not exist in DB")

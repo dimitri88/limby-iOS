@@ -3,7 +3,7 @@
 //  LIMBY
 //
 //  Created by Linzuo Li on 5/24/18.
-//  Copyright © 2018 Nathan Tsai. All rights reserved.
+//  Copyright © 2018 Linzuo Li. All rights reserved.
 //
 
 import UIKit
