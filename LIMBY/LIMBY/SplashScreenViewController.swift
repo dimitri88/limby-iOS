@@ -27,9 +27,9 @@ class SplashScreenViewController: UIViewController {
     }
     private func makeAPICall() {
         activityIndicator.startAnimating()
-        MongoReader.singleton.getData()
 
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(2)) {
+            MongoReader.singleton.getData()
             self.activityIndicator.stopAnimating()
             if ParticleCloud.sharedInstance().isAuthenticated {
                 eprint(message: "Logged in")

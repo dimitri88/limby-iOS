@@ -61,6 +61,11 @@ class LineChartViewController: UIViewController, UITextFieldDelegate {
 //        plotLineChart(plotMode: PlotMode.initial)
 //    }
     
+    @IBAction func test(_ sender: Any) {
+        MongoReader.singleton.getData()
+        timeRange = TimeRange(rawValue: 1)!
+        plotLineChart(plotMode: PlotMode.initial)
+    }
     
     
     // -------------------------------------------------------------------------
