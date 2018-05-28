@@ -96,12 +96,12 @@ class ParticleDataPoint {
 // Get values from Particle device.
 func getValues() -> [ParticleDataPoint] {
     var data = [ParticleDataPoint]()
-    for str in DataQueue.singleton.queue {
-        let components = str.components(separatedBy: "\t")
+    for record in MongoReader.singleton.queue {
         let dateFormatter = DateFormatter()
+        let time : String = String(record["time"]!)
+        let value : Double = Double(record["value"]!)
         dateFormatter.dateFormat = "EEE MMM dd HH:mm:ss yyyy"
-        if let date = dateFormatter.date(from: components[1]),
-            let value = Double(components[0]) {
+        if let date = dateFormatter.date(from: time){
             data.append(ParticleDataPoint(date: date, value: value))
         }
     }

@@ -51,9 +51,9 @@ class MongoReader {
         Alamofire.request(data_endpoint, parameters : params).responseJSON { response in
             if let json = response.result.value as? [[String:Any]]{
                 for res in json {
-                    let time = res["time"] as! Int
-                    let value = res["value"] as! Int
-                    let record = [
+                    let time : Int = res["time"] as! Int
+                    let value : Int = res["value"] as! Int
+                    let record : [String : Int] = [
                         "time" : time,
                         "value": value
                     ]

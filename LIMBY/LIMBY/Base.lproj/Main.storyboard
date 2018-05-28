@@ -198,8 +198,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vZ1-pj-6OR">
-                                <rect key="frame" x="8" y="20" width="359" height="461"/>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vZ1-pj-6OR" customClass="LineChartView" customModule="Charts">
+                                <rect key="frame" x="0.0" y="20" width="375" height="473"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
@@ -209,6 +209,9 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="" systemItem="featured" id="gRm-3z-hrs"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="lineChartView" destination="vZ1-pj-6OR" id="qvN-SB-vaW"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hxA-1E-Q8q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

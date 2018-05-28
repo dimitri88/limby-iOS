@@ -27,11 +27,12 @@ class SplashScreenViewController: UIViewController {
     }
     private func makeAPICall() {
         activityIndicator.startAnimating()
+        MongoReader.singleton.getData()
+
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(2)) {
             self.activityIndicator.stopAnimating()
             if ParticleCloud.sharedInstance().isAuthenticated {
                 eprint(message: "Logged in")
-                MongoReader.singleton.getData()
                 let graphViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "tabBarController")
                 let appDelegate = (UIApplication.shared.delegate as! AppDelegate)
                 appDelegate.window?.rootViewController = graphViewController

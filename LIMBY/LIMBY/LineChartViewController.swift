@@ -26,18 +26,17 @@ class LineChartViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        lineChartView.noDataText = "No data available."
+        lineChartView.noDataText = "No data available."
     }
     
     override func viewWillAppear(_ animated: Bool) {
-            super.viewWillAppear(animated)
-//        timeRange = TimeRange(rawValue: segmentedController.selectedSegmentIndex)!
-//        let _ = DataQueue.singleton.subscribe(prefix: "weight")
-//        plotLineChart(plotMode: PlotMode.initial)
-//        Timer.scheduledTimer(withTimeInterval:
-//            LineChartViewController.REFRESH_INTERVAL, repeats: true) { _ in
-//            self.plotLineChart(plotMode: PlotMode.update)
-//        }
+        super.viewWillAppear(animated)
+        timeRange = TimeRange(rawValue: 1)!
+        plotLineChart(plotMode: PlotMode.initial)
+        Timer.scheduledTimer(withTimeInterval:
+            LineChartViewController.REFRESH_INTERVAL, repeats: true) { _ in
+            self.plotLineChart(plotMode: PlotMode.update)
+        }
     }
     
     // -------------------------------------------------------------------------
@@ -46,9 +45,7 @@ class LineChartViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet var lineChartView: LineChartView!
     
-    @IBOutlet weak var CView: UIView!
-    
-    @IBOutlet weak var segmentedController: UISegmentedControl!
+//    @IBOutlet weak var segmentedController: UISegmentedControl!
     
     // TimeRange to reflect the state of the segmented controller.
     var timeRange = TimeRange(rawValue: 0)!
@@ -59,10 +56,10 @@ class LineChartViewController: UIViewController, UITextFieldDelegate {
     
     
     // Modify line chart whenever segment index changes.
-    @IBAction func segmentChanged(_ sender: Any) {
-        timeRange = TimeRange(rawValue: segmentedController.selectedSegmentIndex)!
-        plotLineChart(plotMode: PlotMode.initial)
-    }
+//    @IBAction func segmentChanged(_ sender: Any) {
+//        timeRange = TimeRange(rawValue: segmentedController.selectedSegmentIndex)!
+//        plotLineChart(plotMode: PlotMode.initial)
+//    }
     
     
     
