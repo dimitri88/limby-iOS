@@ -1,23 +1,14 @@
 //
-//  ViewController.swift
+//  AccountViewController.swift
 //  LIMBY
 //
-//  Created by Team Memorydust on 2/1/18.
-//  Copyright © 2018 Team Memorydust. All rights reserved.
+//  Created by Linzuo Li on 5/23/18.
+//  Copyright © 2018 Linzuo Li. All rights reserved.
 //
 
 import UIKit
 
-var standardError = FileHandle.standardError
-
-extension FileHandle : TextOutputStream {
-    public func write(_ string: String) {
-        guard let data = string.data(using: .utf8) else { return }
-        self.write(data)
-    }
-}
-
-class LoginViewController: UIViewController, ParticleSetupMainControllerDelegate {
+class AccountViewController: UIViewController, ParticleSetupMainControllerDelegate {
     func particleSetupViewController(_ controller: ParticleSetupMainController!, didFinishWith result: ParticleSetupMainControllerResult, device: ParticleDevice!) {
         switch result
         {
@@ -36,8 +27,6 @@ class LoginViewController: UIViewController, ParticleSetupMainControllerDelegate
             print("User cancelled setup")
         case .loggedIn :
             print("User is logged in")
-            let email = ParticleCloud.sharedInstance().loggedInUsername
-            MongoReader.singleton.getUserId(email: email!)
             let graphViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "tabBarController")
             let appDelegate = (UIApplication.shared.delegate as! AppDelegate)
             appDelegate.window?.rootViewController = graphViewController
@@ -55,12 +44,10 @@ class LoginViewController: UIViewController, ParticleSetupMainControllerDelegate
     }
 
     override func viewDidLoad() {
-//        if ParticleCloud.sharedInstance().isAuthenticated {
-//            eprint(message: "Logged in")
-//            let graphViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "lineChartViewController") as! LineChartViewController
-//            self.navigationController?.pushViewController(graphViewController, animated: true)
-//        }
         super.viewDidLoad()
+        logoutButton.layer.borderWidth = 1.0
+        getDevices()
+        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
@@ -68,8 +55,30 @@ class LoginViewController: UIViewController, ParticleSetupMainControllerDelegate
         // Dispose of any resources that can be recreated.
     }
     
-    @IBAction func loginParticle(_ sender: UIButton) {
-        if let setupController = ParticleSetupMainController(authenticationOnly : true)
+
+    /*
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destinationViewController.
+        // Pass the selected object to the new view controller.
+    }
+    */
+    
+    @IBOutlet weak var logoutButton: UIButton!
+    
+    
+    @IBAction func logout(_ sender: UIButton) {
+        MongoReader.singleton.queue.removeAll()
+        ParticleCloud.sharedInstance().logout()
+        let graphViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
+        let appDelegate = (UIApplication.shared.delegate as! AppDelegate)
+        appDelegate.window?.rootViewController = graphViewController
+    }
+    
+    @IBAction func addPerchDevice(_ sender: UIButton) {
+        if let setupController = ParticleSetupMainController()
         {
             let customization = ParticleSetupCustomization.sharedInstance
             customization().deviceName = "Perch"
@@ -82,8 +91,24 @@ class LoginViewController: UIViewController, ParticleSetupMainControllerDelegate
             setupController.delegate = self
             self.present(setupController, animated: true, completion: nil)
         }
+
+    }
+    
+    func getDevices(){
+        var myPhoton : ParticleDevice?
+        ParticleCloud.sharedInstance().getDevices { (devices:[ParticleDevice]?, error:Error?) -> Void in
+            if let _ = error {
+                print("Check your internet connectivity")
+            }
+            else {
+                if let d = devices {
+                    for device in d {
+                        if device.name == "myNewPhotonName" {
+                            myPhoton = device
+                        }
+                    }
+                }
+            }
+        }
     }
 }
-
-
-

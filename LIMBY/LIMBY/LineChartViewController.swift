@@ -12,6 +12,7 @@ import Charts
 
 class LineChartViewController: UIViewController, UITextFieldDelegate {
     
+    
     // -------------------------------------------------------------------------
     // Initialization
     // -------------------------------------------------------------------------
@@ -23,16 +24,18 @@ class LineChartViewController: UIViewController, UITextFieldDelegate {
     static let LINE_WIDTH = CGFloat(2.0)
     static let NATHANS_CONSTANT = CGFloat(17)
     static let REFRESH_INTERVAL = 2.5
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        //connect picker data
+
         lineChartView.noDataText = "No data available."
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        timeRange = TimeRange(rawValue: segmentedController.selectedSegmentIndex)!
-        let _ = DataQueue.singleton.subscribe(prefix: "weight")
+        MongoReader.singleton.getData()
+        timeRange = TimeRange(rawValue: segmentControl.selectedSegmentIndex)!
         plotLineChart(plotMode: PlotMode.initial)
         Timer.scheduledTimer(withTimeInterval:
             LineChartViewController.REFRESH_INTERVAL, repeats: true) { _ in
@@ -45,8 +48,14 @@ class LineChartViewController: UIViewController, UITextFieldDelegate {
     // -------------------------------------------------------------------------
     
     @IBOutlet var lineChartView: LineChartView!
-    @IBOutlet weak var segmentedController: UISegmentedControl!
+
     
+    @IBOutlet weak var segmentControl: UISegmentedControl!
+    
+    
+    @IBAction func indexChanged(_ sender: Any) {
+        replot(row: segmentControl.selectedSegmentIndex)
+    }
     // TimeRange to reflect the state of the segmented controller.
     var timeRange = TimeRange(rawValue: 0)!
     
@@ -54,25 +63,21 @@ class LineChartViewController: UIViewController, UITextFieldDelegate {
     // IBAction handlers
     // -------------------------------------------------------------------------
     
-    @IBAction func unsubscribe(_ sender: Any) {
-        ParticleCloud.sharedInstance().logout()
-        DataQueue.singleton.unsubscribe()
-        DataQueue.singleton.queue.removeAll()
-        self.navigationController?.popViewController(animated: true)
-    }
     
     // Modify line chart whenever segment index changes.
-    @IBAction func segmentChanged(_ sender: Any) {
-        timeRange = TimeRange(rawValue: segmentedController.selectedSegmentIndex)!
-        plotLineChart(plotMode: PlotMode.initial)
-    }
-    
+//    @IBAction func segmentChanged(_ sender: Any) {
+//        timeRange = TimeRange(rawValue: segmentedController.selectedSegmentIndex)!
+//        plotLineChart(plotMode: PlotMode.initial)
+//    }
     
     
     // -------------------------------------------------------------------------
     // Plotting function
     // -------------------------------------------------------------------------
-    
+    func replot(row : Int){
+        timeRange = TimeRange(rawValue: row)!
+        plotLineChart(plotMode: PlotMode.initial)
+    }
     enum PlotMode {
         case initial
         case update
