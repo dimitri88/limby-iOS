@@ -60,7 +60,7 @@ class MongoReader {
                     self.queue.append(record)
                 }
             } else{
-                eprint(message : "Erro, user does not exist in DB")
+                eprint(message : "Error, user does not exist in DB")
             }
         }
     }

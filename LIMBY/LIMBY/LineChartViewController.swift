@@ -10,7 +10,20 @@ import Foundation
 import UIKit
 import Charts
 
-class LineChartViewController: UIViewController, UITextFieldDelegate {
+class LineChartViewController: UIViewController, UITextFieldDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return pickerData.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        replot(row: row)
+        return pickerData[row]
+    }
     
     // -------------------------------------------------------------------------
     // Initialization
@@ -23,9 +36,14 @@ class LineChartViewController: UIViewController, UITextFieldDelegate {
     static let LINE_WIDTH = CGFloat(2.0)
     static let NATHANS_CONSTANT = CGFloat(17)
     static let REFRESH_INTERVAL = 2.5
-    
+    var pickerData: [String] = [String]()
+
     override func viewDidLoad() {
+        pickerData = ["Minute", "Day", "Week", "Month", "Year"]
         super.viewDidLoad()
+        //connect picker data
+        self.picker.delegate = self
+        self.picker.dataSource = self
         lineChartView.noDataText = "No data available."
     }
     
@@ -45,7 +63,8 @@ class LineChartViewController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet var lineChartView: LineChartView!
     
-//    @IBOutlet weak var segmentedController: UISegmentedControl!
+    @IBOutlet weak var picker: UIPickerView!
+    //    @IBOutlet weak var segmentedController: UISegmentedControl!
     
     // TimeRange to reflect the state of the segmented controller.
     var timeRange = TimeRange(rawValue: 0)!
@@ -61,17 +80,14 @@ class LineChartViewController: UIViewController, UITextFieldDelegate {
 //        plotLineChart(plotMode: PlotMode.initial)
 //    }
     
-    @IBAction func test(_ sender: Any) {
-        MongoReader.singleton.getData()
-        timeRange = TimeRange(rawValue: 1)!
-        plotLineChart(plotMode: PlotMode.initial)
-    }
-    
     
     // -------------------------------------------------------------------------
     // Plotting function
     // -------------------------------------------------------------------------
-    
+    func replot(row : Int){
+        timeRange = TimeRange(rawValue: row)!
+        plotLineChart(plotMode: PlotMode.initial)
+    }
     enum PlotMode {
         case initial
         case update
