@@ -77,6 +77,7 @@ class LineChartViewController: UIViewController, UITextFieldDelegate {
     // -------------------------------------------------------------------------
     func replot(row : Int){
         timeRange = TimeRange(rawValue: row)!
+        
         plotLineChart(plotMode: PlotMode.initial)
     }
     enum PlotMode {

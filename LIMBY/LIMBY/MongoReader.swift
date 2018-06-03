@@ -37,7 +37,7 @@ class MongoReader {
         if self.user_id == 0 {
             return
         }
-        
+        self.queue.removeAll()
         let params: Parameters = [
             "q": [
                 "userid": self.user_id
@@ -134,10 +134,15 @@ class MongoReader {
                                     "userid": self.user_id,
                                     "time": timeInterval,
                                 ]
-                                
+                                let record : [String : Int] = [
+                                    "time" : timeInterval,
+                                    "value": Int(value)
+                                ]
+                                //add new data to queue
+                                self.queue.append(record)
+                                //upload to mlab database
                                 Alamofire.request("https://api.mlab.com/api/1/databases/limby/collections/Data?apiKey=fhBffZKOPdngmFRwYKsueQfl_WRHg2Z0", method: .post, parameters: params, encoding: JSONEncoding.default)
                                     .responseJSON { response in
-                                        print(response)
                                 }
 
                             }

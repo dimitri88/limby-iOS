@@ -71,6 +71,7 @@ class AccountViewController: UIViewController, ParticleSetupMainControllerDelega
     
     @IBAction func logout(_ sender: UIButton) {
         MongoReader.singleton.queue.removeAll()
+        MongoReader.singleton.unsubscribe()
         ParticleCloud.sharedInstance().logout()
         let graphViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
         let appDelegate = (UIApplication.shared.delegate as! AppDelegate)
