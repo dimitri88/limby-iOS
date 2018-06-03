@@ -33,6 +33,7 @@ class LineChartViewController: UIViewController, UITextFieldDelegate {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        let _ = MongoReader.singleton.subscribe(prefix: "weight")
         super.viewWillAppear(animated)
         MongoReader.singleton.getData()
         timeRange = TimeRange(rawValue: segmentControl.selectedSegmentIndex)!

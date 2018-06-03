@@ -17,6 +17,7 @@ func eprint(message : String) {
 class MongoReader {
     
     private var user_id = 0
+    private var subscription : Any?
     static let singleton = MongoReader()
     var queue : [[String: Int]] = []
     private init(){ /* Singletons should be private ctor'd */ }
@@ -109,5 +110,53 @@ class MongoReader {
             }
         }
         return exists
+    }
+    
+    func subscribe(prefix : String) -> Any? {
+        if self.user_id == 0 {
+            return nil
+        }
+        
+        var subscription : Any?
+        subscription = ParticleCloud.sharedInstance().subscribeToAllEvents(withPrefix: prefix, handler: { (eventOpt :ParticleEvent?, error : Error?) in
+            if let _ = error {
+                eprint (message: "Could not subscribe to events")
+            } else {
+                let serialQueue = DispatchQueue(label: "getWeight")
+                serialQueue.async(execute: {
+                    if let event = eventOpt{
+                        if let eventData = event.data {
+                            if let value = Double(eventData){
+                                print(value)
+                                let timeInterval = Int(NSDate().timeIntervalSince1970*1000)
+                                let params: Parameters = [
+                                    "value": value,
+                                    "userid": self.user_id,
+                                    "time": timeInterval,
+                                ]
+                                
+                                Alamofire.request("https://api.mlab.com/api/1/databases/limby/collections/Data?apiKey=fhBffZKOPdngmFRwYKsueQfl_WRHg2Z0", method: .post, parameters: params, encoding: JSONEncoding.default)
+                                    .responseJSON { response in
+                                        print(response)
+                                }
+
+                            }
+                        }
+                    }
+                    else{
+                        eprint(message: "Event is nil")
+                    }
+                })
+            }
+        })
+        self.subscription = subscription
+        return subscription
+    }
+    
+    func unsubscribe(){
+        if self.subscription != nil {
+            ParticleCloud.sharedInstance().unsubscribeFromEvent(withID: self.subscription!)
+            self.subscription = nil
+        }
     }
 }
